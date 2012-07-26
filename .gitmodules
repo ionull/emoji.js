@@ -1,0 +1,3 @@
+[submodule "vendor/punycode"]
+	path = vendor/punycode
+	url = https://github.com/bestiejs/punycode.js.git
