@@ -72,6 +72,20 @@ var ioNull = {
 						isEmojiUnicode = true;
 					} else {
 						//console.log('it is not emoji' + unicode);
+							//数字和#号
+						if(unicode == 0x20e3) {
+							if(now > 0) {
+								//check if previous is a number or #
+								var preCode = unicodes[now - 1];
+								if(preCode == 0x23 || preCode >= 0x30 && preCode <= 0x39) {
+									console.log('it is a number unicode: ' + preCode);
+									isEmoji = true;
+									isEmojiUnicode = true;
+									--now;
+									unicode = preCode;
+								}
+							}
+						}
 					}
 
 					if (isEmoji) {
@@ -79,22 +93,39 @@ var ioNull = {
 							var kind = kinds[i];
 							for (var j = 0; j < kind.length; ++j) {
 								var emo = kind[j];
-								var found = false;
-								if (isEmojiUnicode && emo[1] == unicodeString) {
-									found = true;
+								var foundCount = 0;
+								var unicodeEmoji = emo[1];
+								if (isEmojiUnicode) {
+									var isArray = (typeof unicodeEmoji != 'string');
+									if(isArray && now + unicodeEmoji.length - 1 < unicodes.length) {
+										//console.log('is array :' + now + ' ' + unicodeEmoji.length);
+										for(var uindex = 0; uindex < unicodeEmoji.length; uindex++) {
+											var unString = unicodes[now + uindex].toString(16);
+											//console.log('unString is: ' + unString);
+											if(unString != unicodeEmoji[uindex]) {
+												foundCount = 0;
+												break;
+											} else {
+												foundCount++;
+											}
+										}
+										//console.log('emojis string is: ' + emo[0] + ' count: ' + foundCount);
+									} else if(!isArray && emo[1] == unicodeString) {
+										foundCount = 1;
+									}
 								} else if (!isEmojiUnicode && emo[0] == unicodeString) {
-									found = true;
+									foundCount = 1;
 								}
 
-								if (found) {
-									console.log('emojis string is: ' + emo[0]);
+								if (foundCount > 0) {
+									console.log('emojis string is: ' + emo[0] + ' count: ' + foundCount);
 									var data = 'data:image/png;base64,' + emo[2];
 									var html = '<img style="display: inline;vertical-align: middle;" src="' + data + '"/>';
 									console.log('img is: ' + html);
 									//remove old text, add html string
 									var puny = punycode.ucs2.decode(html);
 									console.log('puny length: ' + puny.length);
-									unicodes.splice(now, 1);
+									unicodes.splice(now, foundCount);
 									for (var curr = 0; curr < puny.length; ++curr) {
 										unicodes.splice(now, 0, puny[curr]);
 										//move next
@@ -103,6 +134,7 @@ var ioNull = {
 									//index increase next loop
 									--now;
 									console.log('unicodes length: ' + unicodes.length);
+									break;
 								}
 							}
 						}
