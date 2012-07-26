@@ -56,7 +56,15 @@ var ioNull = {
 						console.log('it is emoji: ' + unicode + punycode.ucs2.encode([unicode]) + ' : ' + unicodeString);
 						//replace with img directly
 						isEmoji = true;
-					} else if ((unicode >= 0x2600 && unicode <= 0x3299) || (unicode >= 0x1f000 && unicode <= 0x1f700)) {
+					} else if (
+							//左上左下右上右下箭头
+							(unicode >=0x2196 && unicode <=0x2199) || 
+							//左右三角箭头
+							(unicode == 0x25C0 || unicode == 0x25B6) ||
+							//2三角左右
+							(unicode == 0x23EA || unicode == 0x23E9) ||
+							(unicode >= 0x2600 && unicode <= 0x3299) || 
+							(unicode >= 0x1f000 && unicode <= 0x1f700)) {
 						unicodeString = unicode.toString(16);
 						console.log('it is unicode 6 emoji: ' + unicode + punycode.ucs2.encode([unicode]) + ' : ' + unicodeString);
 						//we need to find out what is mapped
