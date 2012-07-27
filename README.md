@@ -11,15 +11,19 @@ emoji.js
 <script src="emoji.js"></script>
 ~~~
 
+~~~js
 var html = ioNull.emoji.parse('your emoji string like: 🐭');
 
 element.innerHTML = html;
+~~~
 
 ### Node.js:
 
+~~~js
 var ioNull = require('emoji.js');
 
 console.log(ioNull.emoji.parse('✈'));
+~~~
 
 ## clone emoji.js
 
