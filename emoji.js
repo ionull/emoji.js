@@ -44,7 +44,7 @@
 			} else {
 				return '';
 			}
-			console.log(unicodes.length);
+			//console.log(unicodes.length);
 			var unicodeString = '';
 			var kinds = list;
 			for (var now = 0; now < unicodes.length;) {
@@ -53,7 +53,7 @@
 				var isEmojiUnicode = false;
 				if (unicode >= 0xE000 && unicode < 0xE538) {
 					unicodeString = unicode.toString(16);
-					console.log('it is emoji: ' + unicode + punycode.ucs2.encode([unicode]) + ' : ' + unicodeString);
+					//console.log('it is emoji: ' + unicode + punycode.ucs2.encode([unicode]) + ' : ' + unicodeString);
 					//replace with img directly
 					isEmoji = true;
 				} else if (
@@ -64,7 +64,7 @@
 				//2三角左右
 				(unicode == 0x23EA || unicode == 0x23E9) || (unicode >= 0x2600 && unicode <= 0x3299) || (unicode >= 0x1f000 && unicode <= 0x1f700)) {
 					unicodeString = unicode.toString(16);
-					console.log('it is unicode 6 emoji: ' + unicode + punycode.ucs2.encode([unicode]) + ' : ' + unicodeString);
+					//console.log('it is unicode 6 emoji: ' + unicode + punycode.ucs2.encode([unicode]) + ' : ' + unicodeString);
 					//we need to find out what is mapped
 					isEmoji = true;
 					isEmojiUnicode = true;
@@ -76,7 +76,7 @@
 							//check if previous is a number or #
 							var preCode = unicodes[now - 1];
 							if (preCode == 0x23 || preCode >= 0x30 && preCode <= 0x39) {
-								console.log('it is a number unicode: ' + preCode);
+								//console.log('it is a number unicode: ' + preCode);
 								isEmoji = true;
 								isEmojiUnicode = true; --now;
 								unicode = preCode;
@@ -115,13 +115,13 @@
 							}
 
 							if (foundCount > 0) {
-								console.log('emojis string is: ' + emo[0] + ' count: ' + foundCount);
+								//console.log('emojis string is: ' + emo[0] + ' count: ' + foundCount);
 								var data = 'data:image/png;base64,' + emo[2];
 								var html = '<img style="display: inline;vertical-align: middle;" src="' + data + '"/>';
-								console.log('img is: ' + html);
+								//console.log('img is: ' + html);
 								//remove old text, add html string
 								var puny = punycode.ucs2.decode(html);
-								console.log('puny length: ' + puny.length);
+								//console.log('puny length: ' + puny.length);
 								unicodes.splice(now, foundCount);
 								for (var curr = 0; curr < puny.length; ++curr) {
 									unicodes.splice(now, 0, puny[curr]);
@@ -130,14 +130,14 @@
 								}
 								//index increase next loop
 								--now;
-								console.log('unicodes length: ' + unicodes.length);
+								//console.log('unicodes length: ' + unicodes.length);
 								break;
 							}
 						}
 					}
 				}++now;
 			}
-			console.log('unicodes length: ' + unicodes.length);
+			//console.log('unicodes length: ' + unicodes.length);
 			var html = punycode.ucs2.encode(unicodes);
 			return html;
 		},
