@@ -1,0 +1,28 @@
+{
+	"version": "0.0.1",
+	"name": "emoji",
+	"description": "emoji parser for javascript",
+	"keywords": [
+		"iOS",
+		"Apple",
+		"emoji",
+		"parser",
+		"unicode6"
+	],
+	"homepage": "https://github.com/ionull/emoji.js",
+	"author": "Tsung Wu <tsung.bz@gmail.com> (http://tsung.bz)",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ionull/emoji.js"
+	},
+	"bugs": {
+		"email": "tsung.bz@gmail.com",
+		"url": "https://gihub.com/ionull/emoji.js/issues"
+	},
+	"dependencies": {
+		"punycode": "~1.1.1"
+	},
+	"scripts": {
+		"parse": "node parse.js"
+	}
+}

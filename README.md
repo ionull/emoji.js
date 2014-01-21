@@ -28,14 +28,14 @@ console.log(ioNull.emoji.parse('✈'));
 ## clone emoji.js
 
 ~~~ bash
-git clone --recursive git@github.com:/ioNull/emoji.js.git
+git clone --recursive git@github.com:/ionull/emoji.js.git
 cd emoji.js
 ~~~
 
 For older Git versions, just use:
 
 ~~~ bash
-git clone git@github.com:/ioNull/emoji.js.git
+git clone git@github.com:/ionull/emoji.js.git
 cd emoji.js
 git submodule update --init
 ~~~
